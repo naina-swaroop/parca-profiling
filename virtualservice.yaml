@@ -5,7 +5,7 @@ metadata:
   namespace: parca
 spec:
   hosts:
-  - pprof.example.com  # same host as Gateway
+  - pprof.example.com  # same host as Gateway and use your own DNS or testing domain
   gateways:
   - pprof-gateway
   http:
@@ -13,7 +13,7 @@ spec:
     - uri:
         prefix: /debug/pprof
     - uri:
-        prefix: /health
+        prefix: /ui/
     route:
     - destination:
         host: pprof-demo-service.parca.svc.cluster.local
