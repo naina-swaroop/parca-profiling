@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: pprof-vs
+  namespace: parca
+spec:
+  hosts:
+  - pprof.example.com  # same host as Gateway
+  gateways:
+  - pprof-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /debug/pprof
+    - uri:
+        prefix: /health
+    route:
+    - destination:
+        host: pprof-demo-service.parca.svc.cluster.local
+        port:
+          number: 6060
