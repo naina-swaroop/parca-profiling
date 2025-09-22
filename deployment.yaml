@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pprof-demo
+  namespace: parca
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pprof-demo
+  template:
+    metadata:
+      labels:
+        app: pprof-demo
+      annotations:
+        parca.dev/scrape: "true"
+        parca.dev/port: "6060"
+    spec:
+      containers:
+      - name: pprof-demo
+        image: nainaswaroop/pprof-demo:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6060
