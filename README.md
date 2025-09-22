@@ -25,19 +25,19 @@ This is a demo Go application that generates different workloads for profiling. 
 ## Steps
 1. Create a namespace (if not exists):
    
-       _kubectl create namespace parca_
+       kubectl create namespace parca
 
 3. Apply Deployment and Service:
    
-      _kubectl apply -f deployment.yaml_
+   ```kubectl apply -f deployment.yaml
    
-      _kubectl apply -f service.yaml_
+      kubectl apply -f service.yaml```
 
 5. Apply Istio Gateway and VirtualService:
    
-      _kubectl apply -f gateway.yaml_
+      ```kubectl apply -f gateway.yaml
 
-      _kubectl apply -f virtualservice.yaml_
+      kubectl apply -f virtualservice.yaml```
 
 6. Access pprof and parca via the command line or browser (for visualization).
 
