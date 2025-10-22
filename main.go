@@ -8,7 +8,6 @@ import (
         "math/rand"
         "net/http"
         _ "net/http/pprof"
-        _ "github.com/grafana/pyroscope-go/godeltaprof/http/pprof"
         "os"
         "runtime"
         "strings"
