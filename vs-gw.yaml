@@ -1,0 +1,38 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: pprof-vs
+  namespace: parca
+spec:
+  hosts:
+  - pprof.example.com  # same host as Gateway and use your own DNS or testing domain
+  gateways:
+  - pprof-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /debug/pprof
+    - uri:
+        prefix: /ui/
+    route:
+    - destination:
+        host: pprof-demo-service.parca.svc.cluster.local
+        port:
+          number: 6060
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: pprof-gateway
+  namespace: parca
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - pprof.example.com  # replace with your domain/localhost for demo
+    port:
+      name: http-6060
+      number: 6060
+      protocol: HTTP
