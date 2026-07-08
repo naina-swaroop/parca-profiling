@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: parca
+  namespace: parca
+  labels:
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/instance: parca
+    app.kubernetes.io/name: parca
+    app.kubernetes.io/version: v0.24.0
+data:
+  parca.yaml: |-
+    object_storage:
+      bucket:
+        type: FILESYSTEM
+        config:
+          directory: /var/lib/parca
+
+    scrape_configs:
+      - job_name: "pprof-demo"
+        scrape_interval: 30s
+        scrape_timeout: 40s
+
+        static_configs:
+          - targets:
+              - "pprof-demo-service.parca.svc:6060"
+
+        profiling_config:
+          pprof_config:
+            profile.process_cpu:
+              enabled: false
+            profile.allocs:
+              enabled: true
+              path: /debug/pprof/allocs
+            profile.heap:
+              enabled: true
+              path: /debug/pprof/heap
+            profile.block:
+              enabled: true
+              path: /debug/pprof/block
+            profile.mutex:
+              enabled: true
+              path: /debug/pprof/mutex
